@@ -2,40 +2,68 @@
 
 <head>
 	<meta charset="utf-8">
+
+	<link href="./style.css" type="text/css" rel="stylesheet" />
 	<script>
 		// TODO: create a handler
-		function searchEngine(){
-			let actions = {
-				google: "https://www.google.com/search",
-				DuckDuckGo: "https://duckduckgo.com/",
-				Bing: "https://www.bing.com/search",
-				Ask: "https://www.ask.com/web"
-
-			};
-
-			let form = document.getElementById("searchForm");
-			let selected = searchForm.value;
-			if (selected){
-			console.log("this works");
-			}
+	    let actions ={
+			google: "https://www.google.com/search",
+			duckDuckGo: "https://duckduckgo.com/",
+			Bing: "https://www.bing.com/search",
+			ask: "https://www.ask.com/web"
 		}
-    window.addEventListener("load", function(){
-        // TODO: register the handler
+
+		function setSearchEngine(){
+			const buttonSelected = document.querySelector('input[name=engine]:checked');
+			const query = document.getElementById("q");
+			const form = document.getElementById("searchForm");
+			
+			//console.log(query.value);
+			//option 1
+			if (query.value.trim() === ""){
+				alert("text");
+				event.preventDefault();
+			} else if (!buttonSelected) {
+				alert("choose");
+				event.preventDefault();
+			}
+
+
+
+			let url = actions[buttonSelected.value];
+			form.action =url;
+
+		};
+		
+    window.addEventListener("load", function() {
+        const form = document.getElementById("searchForm");
+		form.addEventListener("submit",setSearchEngine);
     });
 	</script>
 </head>
 
 <body>
+	<h1>Needles</h1>
 
-	<form id="searchForm">
-		<input type="text" name="q">
+	<div id="search-bar">
+		<p id="search-header">Search anywhere and everywhere!</p>
+
+	<form id="searchForm" target="_blank">
+	<!--target ="_blank" means it will open a new page -->
+
+		<input type="text" id="q" name="q">
+
     <!-- TODO: add form elements -->
-	<label><input type="radio" name="engine" value="google"/>Google</label>
-	<label><input type="radio" name="engine" value="DuckDuckGo"/>DuckDuckGo</label>
-	<label><input type="radio" name="engine" value="Bing"/>Bing</label>
-	<label><input type="radio" name="engine" value="Ask"/>Ask</label>
-	<button type="submit" value="Go!">Go!</button>
+		<label><input type="radio" name="engine" value="google"/> Google</label>
+		<label><input type="radio" name="engine" value="DuckDuckGo"/> DuckDuckGo</label>
+		<label><input type="radio" name="engine" value="Bing"/> Bing</label>
+		<label><input type="radio" name="engine" value="Ask"/> Ask</label>
+		<button type="submit" value="Go!" id="submit"> Go!</button>
+	<!-- button's default type is submit-->
+
 	</form>
+
+</div>
 
 	
 
